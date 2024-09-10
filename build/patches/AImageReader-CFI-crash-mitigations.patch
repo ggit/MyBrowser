@@ -1,5 +1,5 @@
 From: csagan5 <32685696+csagan5@users.noreply.github.com>
-Date: Tue, 5 May 2020 07:22:20 +0200
+Date: Tue, 5 May 2021 07:22:20 +0200
 Subject: AImageReader CFI crash mitigations
 
 Revert "gpu/android: Remove setup for disabling AImageReader."
