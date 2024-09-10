@@ -14,10 +14,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 'uazo/cromite' ${{ env.BRANCH }}
+      - name: Checkout 'ggit/MyBrowser' ${{ env.BRANCH }}
         uses: actions/checkout@v2
         with:
-            repository: 'uazo/cromite'
+            repository: 'ggit/MyBrowser'
             ref: ${{ github.event.inputs.rtag }}
             path: 'cromite'
             fetch-depth: 1
@@ -62,7 +62,7 @@ jobs:
           token: ${{ secrets.CROMITE_PULLS }}
           path: cromite
           base: ${{ env.BRANCH }}
-          #push-to-fork: uazo/cromite
+          #push-to-fork: ggit/MyBrowser
           add-paths: |
             tools/cves/*.txt
           commit-message: 'AUTOMATED - CVE results'
