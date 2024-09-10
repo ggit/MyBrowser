@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        description: 'uazo/cromite SHA'
+        description: 'ggit/MyBrowser SHA'
         required: true
         default: ''
       type:
@@ -45,16 +45,16 @@ jobs:
         run: |
           wget https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip
           unzip pup_v0.4.0_linux_amd64.zip && rm pup_v0.4.0_linux_amd64.zip
-          BRANCH=$(curl https://github.com/uazo/cromite/branch_commits/$CROMITE_SHA | ./pup -p li.branch:last-child a text{} | xargs)
+          BRANCH=$(curl https://github.com/ggit/MyBrowser/branch_commits/$CROMITE_SHA | ./pup -p li.branch:last-child a text{} | xargs)
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
 
           wget https://github.com/cli/cli/releases/download/v2.18.1/gh_2.18.1_linux_amd64.tar.gz
           tar xfz gh_2.18.1_linux_amd64.tar.gz
 
-      - name: Checkout 'uazo/cromite'
+      - name: Checkout 'ggit/MyBrowser'
         uses: actions/checkout@v2
         with:
-            repository: 'uazo/cromite'
+            repository: 'ggit/MyBrowser'
             path: 'cromite'
             fetch-depth: 1
 
@@ -194,7 +194,7 @@ jobs:
           echo "::endgroup::"
 
           TIMESTAMP=$(date +%s -r chrome-win.zip)
-          echo >updateurl.txt "browser=chromium;os=windows;architecture=64-bit;timestamp=$TIMESTAMP;editor=uazo;channel=stable;repository=https://github.com/uazo/cromite/releases;download=https://github.com/uazo/cromite/releases/latest/download/chrome-win.zip;version=$(cat $OUTPUTFILE_WIN/RELEASE);revision=1;commit=$CROMITE_SHA"
+          echo >updateurl.txt "browser=chromium;os=windows;architecture=64-bit;timestamp=$TIMESTAMP;editor=uazo;channel=stable;repository=https://github.com/ggit/MyBrowser/releases;download=https://github.com/ggit/MyBrowser/releases/latest/download/chrome-win.zip;version=$(cat $OUTPUTFILE_WIN/RELEASE);revision=1;commit=$CROMITE_SHA"
           $GH release upload $VERSION-$CROMITE_SHA updateurl.txt
 
           $GH release edit $VERSION-$CROMITE_SHA -t $VERSION-$CROMITE_SHA
@@ -204,6 +204,6 @@ jobs:
           fi
 
           VERSION=$(cat ${{ env.OUTPUTFILE_ARM64 }}/RELEASE)
-          docker push uazo/cromite:$VERSION-$CROMITE_SHA
-          docker push uazo/cromite-build:$VERSION-$CROMITE_SHA
+          docker push ggit/MyBrowser:$VERSION-$CROMITE_SHA
+          docker push ggit/MyBrowser-build:$VERSION-$CROMITE_SHA
 
