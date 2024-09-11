@@ -13,9 +13,9 @@ runs:
       shell: bash
       run: |
         VERSION="${{ inputs.version }}"
-        IS_PRESENT=$(docker inspect --type=image uazo/build-deps:$VERSION > /dev/null ; echo $?)
+        IS_PRESENT=$(docker inspect --type=image mybr/build-deps:$VERSION > /dev/null ; echo $?)
         if [ $IS_PRESENT -ne "0" ]; then
-          IS_PRESENT=$(docker manifest inspect uazo/build-deps:$VERSION > /dev/null ; echo $?)
+          IS_PRESENT=$(docker manifest inspect mybr/build-deps:$VERSION > /dev/null ; echo $?)
           if [ $IS_PRESENT -ne "0" ]; then
             echo "Image not found"
           
@@ -24,7 +24,7 @@ runs:
           
             git clone https://github.com/uazo/bromite-buildtools
             cd bromite-buildtools/images/build-deps/
-            DOCKER_BUILDKIT=1 docker build -t uazo/build-deps:$VERSION --progress plain .
+            DOCKER_BUILDKIT=1 docker build -t mybr/build-deps:$VERSION --progress plain .
 
             popd
             rm -rf build-repo
