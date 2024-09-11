@@ -78,11 +78,11 @@ jobs:
       - name: Building build-deps container ${{ env.VERSION }}
         shell: bash
         run: |
-          IS_PRESENT=$(docker inspect --type=image uazo/build-deps:$VERSION > /dev/null ; echo $?)
+          IS_PRESENT=$(docker inspect --type=image mybr/build-deps:$VERSION > /dev/null ; echo $?)
           if [ $IS_PRESENT -ne "0" ]; then
-            IS_PRESENT=$(docker manifest inspect uazo/build-deps:$VERSION > /dev/null ; echo $?)
+            IS_PRESENT=$(docker manifest inspect mybr/build-deps:$VERSION > /dev/null ; echo $?)
             if [ $IS_PRESENT -ne "0" ]; then
-              DOCKER_BUILDKIT=1 docker build -t uazo/build-deps:$VERSION \
+              DOCKER_BUILDKIT=1 docker build -t mybr/build-deps:$VERSION \
                 --progress plain \
                 --build-arg VERSION=$VERSION \
                 --build-arg HTTP_PROXY="$PROXY_ADDR" \
@@ -94,11 +94,11 @@ jobs:
       - name: Building chromium container ${{ env.VERSION }}
         shell: bash
         run: |
-          IS_PRESENT=$(docker inspect --type=image uazo/chromium:$VERSION > /dev/null ; echo $?)
+          IS_PRESENT=$(docker inspect --type=image mybr/chromium:$VERSION > /dev/null ; echo $?)
           if [ $IS_PRESENT -ne "0" ]; then
-            IS_PRESENT=$(docker manifest inspect uazo/chromium:$VERSION > /dev/null ; echo $?)
+            IS_PRESENT=$(docker manifest inspect mybr/chromium:$VERSION > /dev/null ; echo $?)
             if [ $IS_PRESENT -ne "0" ]; then
-              DOCKER_BUILDKIT=1 docker build -t uazo/chromium:$VERSION \
+              DOCKER_BUILDKIT=1 docker build -t mybr/chromium:$VERSION \
                 --progress plain \
                 --build-arg VERSION=$VERSION \
                 --build-arg HTTP_PROXY="$PROXY_ADDR" \
